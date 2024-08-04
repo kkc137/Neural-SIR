@@ -11,11 +11,11 @@ torch.manual_seed(123)
 # Configurable parameters
 num_samples = 500
 beta_mean, gamma_mean = 0.3, 0.1
-beta_var, gamma_var = 1, 1
+beta_var, gamma_var = 0.01, 0.01
 time_span = 100
 num_time_points = 200
 batch_size = 32
-num_epochs = 10
+num_epochs = 25
 learning_rate = 0.001
 
 # Simulate beta, gamma
@@ -23,9 +23,9 @@ beta_samples = torch.abs(torch.randn(num_samples) * torch.sqrt(torch.tensor(beta
 gamma_samples = torch.abs(torch.randn(num_samples) * torch.sqrt(torch.tensor(gamma_var)) + gamma_mean)
 
 # Simulate S0, I0, R0 (more realistic initial conditions)
-S0 = torch.rand(num_samples) * 0.9 + 0.1  # Ensure S0 is never too small
-I0 = torch.rand(num_samples) * 0.1  # Assume small initial infections
-R0 = torch.zeros(num_samples)  # Assume no initial recovered
+S0 = 0.8  # Ensure S0 is never too small
+I0 = 0.2  # Assume small initial infections
+R0 = 0.0  # Assume no initial recovered
 
 class SIRModel(nn.Module):
     def __init__(self, beta, gamma):
