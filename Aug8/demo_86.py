@@ -88,10 +88,10 @@ for i in range(20001):
 
     # Data loss calculation
     loss2 = torch.mean((u - u_obs) ** 2)
-    loss3 = torch.mean((1.0 - S -I)**2)
+    #loss3 = torch.mean((1.0 - S -I)**2)
     loss4 =(0.4-beta-gamma)**2
     # Total loss
-    loss = (1e3* loss1 + 1e5 * loss2 + 1e5 * loss3+ 1e4 *loss4)
+    loss = (1e4* loss1 + 1e6 * loss2 + 1e4 *loss4) #1e5 * loss3
     loss.backward()
     optimizer_new.step()
 
@@ -112,6 +112,7 @@ for i in range(20001):
         plt.plot(t_test[:, 0], u[:, 2], label="R (PINN)", color="tab:green")
         plt.title(f"Training step {i}")
         plt.legend()
+        plt.savefig('sir_invert_{i}.png')
         plt.show()
 
 # Plot the estimated values of beta and gamma over training steps
@@ -131,4 +132,7 @@ plt.legend()
 plt.xlabel("Training step")
 
 plt.tight_layout()
+plt.savefig('sir_gamma_plot_regularization.png')
 plt.show()
+
+
